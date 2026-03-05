@@ -125,7 +125,7 @@ const DocumentViewer = () => {
           </h2>
           
           <input
-            placeholder={commSelected ? "PDF open - search hidden" : "🔍 Type 2+ chars (Abhiram, Preethi...)"}
+            placeholder={commSelected ? "PDF open - search hidden" : "Type few chars (Abhiram, Preethi...)"}
             className="w-full px-5 py-3 rounded-xl bg-white/50 border-2 border-orange-400/30 focus:border-orange-400 focus:ring-2 mb-6 text-lg disabled:bg-gray-100 disabled:cursor-not-allowed"
             value={commSearch}
             onChange={(e) => setCommSearch(e.target.value)}
@@ -135,21 +135,21 @@ const DocumentViewer = () => {
           <div className="space-y-3 max-h-96 overflow-y-auto mb-8 scrollbar-thin scrollbar-thumb-gray-300">
             {commSelected ? (
               <div className="text-center py-12 text-gray-400 border-2 border-dashed border-gray-200 rounded-xl bg-gradient-to-br from-orange-50/50 to-white">
-                <div className="text-2xl mb-4">📄</div>
+                <div className="text-2xl mb-4"></div>
                 <div className="text-lg font-medium text-gray-600 mb-1">Communication PDF</div>
                 <div className="text-sm">File list hidden</div>
               </div>
             ) : commSearch.length < 2 ? (
               <div className="text-center py-12 text-gray-500 border-2 border-dashed border-gray-300 rounded-xl">
-                <div className="text-lg mb-2">📝 Start typing...</div>
-                <div className="text-sm">Type 2+ characters to search candidates</div>
+                <div className="text-lg mb-2"> Start typing...</div>
+                <div className="text-sm">Type few characters to search candidates</div>
                 <div className="text-xs mt-2 text-gray-400">
                   Total: {commFiles.length} files
                 </div>
               </div>
             ) : filteredCommFiles.length === 0 ? (
               <div className="text-center py-12 text-gray-500">
-                😕 No matches for "{commSearch}"
+                 No matches for "{commSearch}"
               </div>
             ) : (
               filteredCommFiles.map((file) => (
@@ -188,7 +188,7 @@ const DocumentViewer = () => {
             <div className="pt-6 border-t border-gray-200">
               <iframe 
                 src={commSelected} 
-                className="w-full h-[500px] rounded-xl shadow-2xl border-0" 
+                className="w-full h-[1000px] rounded-xl shadow-2xl border-0" 
                 title="Communication PDF"
                 allowFullScreen
               />
@@ -217,7 +217,7 @@ const DocumentViewer = () => {
           </h2>
           
           <input
-            placeholder={techSelected ? "PDF open - search hidden" : "🔍 Type 2+ chars (Abhiram, Preethi...)"}
+            placeholder={techSelected ? "PDF open - search hidden" : "Type few chars (Abhiram, Preethi...)"}
             className="w-full px-5 py-3 rounded-xl bg-white/50 border-2 border-blue-400/30 focus:border-blue-400 focus:ring-2 mb-6 text-lg disabled:bg-gray-100 disabled:cursor-not-allowed"
             value={techSearch}
             onChange={(e) => setTechSearch(e.target.value)}
@@ -227,21 +227,21 @@ const DocumentViewer = () => {
           <div className="space-y-3 max-h-96 overflow-y-auto mb-8 scrollbar-thin scrollbar-thumb-gray-300">
             {techSelected ? (
               <div className="text-center py-12 text-gray-400 border-2 border-dashed border-gray-200 rounded-xl bg-gradient-to-br from-blue-50/50 to-white">
-                <div className="text-2xl mb-4">💻</div>
+                <div className="text-2xl mb-4"></div>
                 <div className="text-lg font-medium text-gray-600 mb-1">Technical PDF</div>
                 <div className="text-sm">File list hidden</div>
               </div>
             ) : techSearch.length < 2 ? (
               <div className="text-center py-12 text-gray-500 border-2 border-dashed border-gray-300 rounded-xl">
-                <div className="text-lg mb-2">📝 Start typing...</div>
-                <div className="text-sm">Type 2+ characters to search candidates</div>
+                <div className="text-lg mb-2"> Start typing...</div>
+                <div className="text-sm">Type few characters to search candidates</div>
                 <div className="text-xs mt-2 text-gray-400">
                   Total: {techFiles.length} files
                 </div>
               </div>
             ) : filteredTechFiles.length === 0 ? (
               <div className="text-center py-12 text-gray-500">
-                😕 No matches for "{techSearch}"
+                 No matches for "{techSearch}"
               </div>
             ) : (
               filteredTechFiles.map((file) => (
@@ -280,7 +280,7 @@ const DocumentViewer = () => {
             <div className="pt-6 border-t border-gray-200">
               <iframe 
                 src={techSelected} 
-                className="w-full h-[500px] rounded-xl shadow-2xl border-0" 
+                className="w-full h-[1000px] rounded-xl shadow-2xl border-0" 
                 title="Technical PDF"
                 allowFullScreen
               />
