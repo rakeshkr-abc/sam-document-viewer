@@ -1,0 +1,153 @@
+EXACT Procedure to Create `api.json` File
+
+2-Minute Process - Every New Batch of Candidates
+
+$$$$$$$$$$$$$$$$ Step 1: Google Apps Script Setup (Copy-Paste)
+
+1. Go to [script.google.com](https://script.google.com) → New Project
+2. Delete default code → Paste this EXACT code in `Code.gs`:
+
+const COMM_FOLDER_ID = 'YOUR_COMMUNICATION_FOLDER_ID_HERE';
+const TECH_FOLDER_ID = 'YOUR_TECHNICAL_FOLDER_ID_HERE';
+
+function exportToJSON() {
+  const commFiles = [];
+  const commFolder = DriveApp.getFolderById(COMM_FOLDER_ID);
+  const commIterator = commFolder.getFiles();
+  
+  while (commIterator.hasNext()) {
+    const file = commIterator.next();
+    commFiles.push({
+      name: file.getName(),
+      id: file.getId()
+    });
+  }
+  
+  const techFiles = [];
+  const techFolder = DriveApp.getFolderById(TECH_FOLDER_ID);
+  const techIterator = techFolder.getFiles();
+  
+  while (techIterator.hasNext()) {
+    const file = techIterator.next();
+    techFiles.push({
+      name: file.getName(),
+      id: file.getId()
+    });
+  }
+  
+  const jsonData = {
+    communication: commFiles,
+    technical: techFiles
+  };
+  
+  const jsonBlob = Utilities.newBlob(
+    JSON.stringify(jsonData, null, 2),
+    'application/json',
+    'api.json'
+  );
+  
+  DriveApp.createFile(jsonBlob);
+  console.log('✅ api.json CREATED! Check Google Drive root');
+  console.log(`📊 Communication: ${commFiles.length} files`);
+  console.log(`📊 Technical: ${techFiles.length} files`);
+}
+
+function bulkFixPermissions() {
+  const commFolder = DriveApp.getFolderById(COMM_FOLDER_ID);
+  const techFolder = DriveApp.getFolderById(TECH_FOLDER_ID);
+  
+  let fixed = 0;
+  
+  const commFiles = commFolder.getFiles();
+  while (commFiles.hasNext()) {
+    commFiles.next().setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
+    fixed++;
+  }
+  
+  const techFiles = techFolder.getFiles();
+  while (techFiles.hasNext()) {
+    techFiles.next().setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
+    fixed++;
+  }
+  
+  console.log(`✅ FIXED ${fixed} files - All PUBLIC!`);
+}
+
+
+$$$$$$$$$$$$$$$$ Step 2: Get Folder IDs
+
+
+1. drive.google.com → Communication folder → URL
+2. Copy ID from: https://drive.google.com/drive/folders/1ABC123... ← THIS PART
+3. Paste into COMM_FOLDER_ID = '1ABC123...'
+
+4. Technical folder → Same process → TECH_FOLDER_ID
+
+
+$$$$$$$$$$$$$$$$ Step 3: Run Script (30 Seconds)
+
+
+1. Save (Ctrl+S)
+2. Select `exportToJSON` → Run (▶️ button)
+3. [Allow permissions] → "Go to Untitled project (unsafe)"
+4. ✅ Check Logs → "api.json CREATED!"
+
+5. drive.google.com → Root folder → Find `api.json`
+6. Right-click → Download → api.json
+
+
+$$$$$$$$$$$$$$$$ Step 4: Update React App
+
+
+1. report-viewer2/public/ → Replace api.json
+2. npm run dev → Test instantly!
+
+
+ 📋 Complete Example
+
+Your folder URLs:
+
+Communication: https://drive.google.com/drive/folders/145rY8skAbnnZ44qXx4Vfh6At-h5XJHRa
+Technical: https://drive.google.com/drive/folders/1tS2sx8qseS_CLDI0zs0Vs6T1BgqBjcIn
+
+
+Code.gs becomes:
+const COMM_FOLDER_ID = '145rY8skAbnnZ44qXx4Vfh6At-h5XJHRa';
+const TECH_FOLDER_ID = '1tS2sx8qseS_CLDI0zs0Vs6T1BgqBjcIn';
+
+
+ 🔄 Weekly Workflow (2 Minutes)
+
+
+New batch? → 
+1. Update 2 folder IDs
+2. Run exportToJSON()
+3. Download api.json → public/
+4. git add . → git commit → git push
+5. npm run build → Deploy Netlify
+
+
+ ✅ Resulting `api.json`
+json
+{
+  "communication": [
+    {"name": "V.Preethi Reddy Communication Round report.pdf", "id": "1xyz..."},
+    {"name": "Abhiram Gurrala Communication Round report.pdf", "id": "1abc..."}
+  ],
+  "technical": [
+    {"name": "Abhiram Gurrala Coding Round 5 report.pdf", "id": "1def..."}
+  ]
+}
+
+
+ 🚨 Don't Forget:
+
+✅ Run bulkFixPermissions() FIRST → Makes PDFs public
+✅ Folder permissions → "Anyone with link" → Viewer  
+✅ Test 1 PDF: https://drive.google.com/file/d/ID/preview
+✅ Replace public/api.json → npm run dev
+
+
+Copy → Paste → Update 2 IDs → Run → Download → Replace → Deploy! 🎉
+
+That's it! Your app auto-handles 1000s of new PDFs perfectly! 🚀
